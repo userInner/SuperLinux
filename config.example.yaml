@@ -1,0 +1,73 @@
+# Linux Agent Configuration Example
+# Copy this file to config.yaml and fill in your settings
+
+# =============================================================================
+# AI Models Configuration
+# =============================================================================
+
+# Primary AI - the main model that handles tasks
+primary_ai:
+  name: DeepSeek
+  provider: deepseek    # Options: openai, anthropic, deepseek, gemini
+  model: deepseek-chat
+  api_key: ${DEEPSEEK_API_KEY}  # Use env var or paste key directly
+
+# Secondary AIs - consulted when primary fails repeatedly
+secondary_ais:
+  - name: Gemini-Consultant
+    provider: gemini
+    model: gemini-2.5-flash  # Options: gemini-2.5-flash, gemini-2.5-pro, gemini-3-flash-preview, gemini-3-pro-preview
+    api_key: ${GEMINI_API_KEY}
+    role: consultant
+
+  # Uncomment to add more consultants
+  # - name: GPT-4-Consultant
+  #   provider: openai
+  #   model: gpt-4o
+  #   api_key: ${OPENAI_API_KEY}
+  #   role: consultant
+
+# =============================================================================
+# Agent Behavior Settings
+# =============================================================================
+
+agent:
+  max_retries: 3                    # Retry attempts before escalating
+  search_attempts_before_consult: 2 # Web searches before consulting secondary AI
+  max_iterations: 15                # Max tool call iterations per request
+
+# =============================================================================
+# Paths and Storage
+# =============================================================================
+
+sandbox_path: /tmp/agent_sandbox    # Directory for file operations
+checkpoint_db: checkpoints.db       # SQLite database for state persistence
+
+# =============================================================================
+# MCP Server Configuration (for advanced usage)
+# =============================================================================
+
+mcp_servers:
+  - name: system-monitor
+    transport: stdio
+    command: python3
+    args: ["-m", "src.mcp_servers.system_monitor"]
+    timeout: 30
+
+  - name: file-manager
+    transport: stdio
+    command: python3
+    args: ["-m", "src.mcp_servers.file_manager", "/tmp/agent_sandbox"]
+    timeout: 30
+
+  - name: network
+    transport: stdio
+    command: python3
+    args: ["-m", "src.mcp_servers.network"]
+    timeout: 60
+
+  - name: service-manager
+    transport: stdio
+    command: python3
+    args: ["-m", "src.mcp_servers.service_manager"]
+    timeout: 30
