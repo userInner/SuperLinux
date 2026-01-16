@@ -32,6 +32,7 @@ class AIModelConfig:
     model: str
     api_key: str
     role: str = "primary"  # primary, consultant, specialist
+    base_url: str | None = None  # 自定义 API 端点
     
     def __post_init__(self):
         """Resolve environment variables in api_key."""
@@ -78,6 +79,7 @@ class MultiAgentConfig:
     mcp_servers: list[MCPServerConfig] = field(default_factory=list)
     checkpoint_db: str = "checkpoints.db"
     sandbox_path: str = "/tmp/agent_sandbox"
+    workspace_path: str = "~/agent_workspace"
     
     @classmethod
     def from_yaml(cls, path: str) -> "MultiAgentConfig":
@@ -94,7 +96,8 @@ class MultiAgentConfig:
             provider=primary_data.get("provider", "deepseek"),
             model=primary_data.get("model", "deepseek-chat"),
             api_key=primary_data.get("api_key", ""),
-            role="primary"
+            role="primary",
+            base_url=primary_data.get("base_url")
         )
         
         # Parse secondary AIs
@@ -107,7 +110,8 @@ class MultiAgentConfig:
                     provider=ai_data.get("provider", "openai"),
                     model=ai_data.get("model", "gpt-4o"),
                     api_key=api_key,
-                    role=ai_data.get("role", "consultant")
+                    role=ai_data.get("role", "consultant"),
+                    base_url=ai_data.get("base_url")
                 ))
         
         # Parse agent behavior
@@ -124,6 +128,10 @@ class MultiAgentConfig:
             for server in data.get("mcp_servers", [])
         ]
         
+        # Parse workspace path (expand ~)
+        workspace_path = data.get("workspace_path", "~/agent_workspace")
+        workspace_path = os.path.expanduser(workspace_path)
+        
         return cls(
             primary_ai=primary_ai,
             secondary_ais=secondary_ais,
@@ -131,6 +139,7 @@ class MultiAgentConfig:
             mcp_servers=mcp_servers,
             checkpoint_db=data.get("checkpoint_db", "checkpoints.db"),
             sandbox_path=data.get("sandbox_path", "/tmp/agent_sandbox"),
+            workspace_path=workspace_path,
         )
 
 

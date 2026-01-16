@@ -40,7 +40,8 @@ agent:
 # Paths and Storage
 # =============================================================================
 
-sandbox_path: /tmp/agent_sandbox    # Directory for file operations
+workspace_path: ~/agent_workspace   # 代码文件操作的工作目录
+sandbox_path: /tmp/agent_sandbox    # 临时文件目录
 checkpoint_db: checkpoints.db       # SQLite database for state persistence
 
 # =============================================================================

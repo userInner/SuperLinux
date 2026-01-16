@@ -550,14 +550,52 @@ async def _run_command(arguments: dict[str, Any]) -> str:
     
     # Only allow certain safe commands
     safe_prefixes = [
-        "ls", "cat", "head", "tail", "grep", "find", "wc",
-        "df", "du", "free", "top -bn1", "ps", "uptime",
-        "uname", "hostname", "whoami", "pwd", "date",
-        "ip addr", "ifconfig", "netstat", "ss",
-        "systemctl status", "systemctl list",
-        "docker ps", "docker images",
-        "which", "whereis", "file", "stat",
-        "pip", "pip3", "npm", "node", "python", "python3",
+        # 文件操作
+        "ls", "cat", "head", "tail", "less", "more", "wc", "file", "stat",
+        "cp", "mv", "mkdir", "touch", "rm", "rmdir",
+        "find", "locate", "whereis", "which",
+        "ln", "readlink", "realpath",
+        "tar", "zip", "unzip", "gzip", "gunzip",
+        "diff", "cmp", "md5sum", "sha256sum",
+        
+        # 文本处理
+        "grep", "awk", "sed", "sort", "uniq", "cut", "tr", "xargs",
+        "echo", "printf", "tee",
+        
+        # 系统信息
+        "df", "du", "free", "top -bn1", "htop", "ps", "uptime", "w",
+        "uname", "hostname", "whoami", "id", "pwd", "date", "cal",
+        "lscpu", "lsmem", "lsblk", "lspci", "lsusb",
+        "env", "printenv", "set",
+        
+        # 网络
+        "ip", "ifconfig", "netstat", "ss", "ping", "traceroute",
+        "curl", "wget", "nc", "nslookup", "dig", "host",
+        "iptables -L", "route",
+        
+        # 进程管理
+        "kill", "killall", "pkill", "pgrep", "jobs", "bg", "fg", "nohup",
+        
+        # 服务管理
+        "systemctl", "service", "journalctl",
+        
+        # 包管理
+        "apt", "apt-get", "dpkg", "yum", "dnf", "pacman",
+        "pip", "pip3", "npm", "yarn", "cargo",
+        
+        # 开发工具
+        "python", "python3", "node", "npm", "npx", "yarn",
+        "git", "make", "cmake", "gcc", "g++",
+        "java", "javac", "mvn", "gradle",
+        
+        # Docker
+        "docker", "docker-compose",
+        
+        # 其他
+        "cd", "source", "export", "alias", "history", "clear",
+        "man", "help", "info", "type",
+        "sleep", "time", "timeout", "watch",
+        "xdg-open", "open",
     ]
     
     is_safe = any(command.strip().startswith(prefix) for prefix in safe_prefixes)
@@ -598,25 +636,53 @@ async def _run_command(arguments: dict[str, Any]) -> str:
 
 # ===== 代码/文件操作工具实现 =====
 
-# 工作目录（安全限制）
 import os
-WORKSPACE_ROOT = os.environ.get("AGENT_WORKSPACE", os.path.expanduser("~/agent_workspace"))
+
+# 工作目录（从配置或环境变量读取）
+WORKSPACE_ROOT = None
+
+
+def _get_workspace_root() -> str:
+    """获取工作目录，优先从配置文件读取"""
+    global WORKSPACE_ROOT
+    
+    if WORKSPACE_ROOT is not None:
+        return WORKSPACE_ROOT
+    
+    # 尝试从配置文件读取
+    for config_path in ["config.yaml", "config.yml"]:
+        if os.path.exists(config_path):
+            try:
+                import yaml
+                with open(config_path) as f:
+                    data = yaml.safe_load(f)
+                workspace = data.get("workspace_path", "~/agent_workspace")
+                WORKSPACE_ROOT = os.path.expanduser(workspace)
+                return WORKSPACE_ROOT
+            except:
+                pass
+    
+    # 回退到环境变量或默认值
+    WORKSPACE_ROOT = os.environ.get("AGENT_WORKSPACE", os.path.expanduser("~/agent_workspace"))
+    return WORKSPACE_ROOT
 
 
 def _safe_path(path: str) -> str:
     """确保路径在工作目录内"""
+    workspace = _get_workspace_root()
+    
     # 创建工作目录
-    os.makedirs(WORKSPACE_ROOT, exist_ok=True)
+    os.makedirs(workspace, exist_ok=True)
     
     # 处理相对路径
     if not os.path.isabs(path):
-        full_path = os.path.normpath(os.path.join(WORKSPACE_ROOT, path))
+        full_path = os.path.normpath(os.path.join(workspace, path))
     else:
         full_path = os.path.normpath(path)
     
     # 安全检查：必须在工作目录内
-    if not full_path.startswith(WORKSPACE_ROOT):
-        raise ValueError(f"Access denied: path must be within {WORKSPACE_ROOT}")
+    if not full_path.startswith(workspace):
+        raise ValueError(f"Access denied: path must be within {workspace}")
     
     return full_path
 
@@ -916,7 +982,7 @@ async def _run_code(arguments: dict[str, Any]) -> str:
             *cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            cwd=WORKSPACE_ROOT
+            cwd=_get_workspace_root()
         )
         
         stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=60)

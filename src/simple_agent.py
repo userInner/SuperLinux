@@ -4,23 +4,42 @@ import asyncio
 import json
 import uuid
 from typing import Any
+from enum import Enum
 
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, SystemMessage
 
 from .common.config import AgentConfig
 from .orchestrator.llm_engine import create_llm_engine
 from .tools import execute_tool, get_all_tools
+from .prompts import get_prompt
+
+
+class TaskStatus(Enum):
+    """任务状态"""
+    IN_PROGRESS = "in_progress"      # 进行中
+    COMPLETED = "completed"          # 已完成
+    FAILED = "failed"                # 失败
+    NEEDS_INPUT = "needs_input"      # 需要用户输入
+    BLOCKED = "blocked"              # 被阻塞
 
 
 class SimpleLinuxAgent:
-    """Simplified agent with auto-retry and search fallback."""
+    """基于任务完成状态的智能 Agent。
+    
+    核心理念：以问题解决为导向，而不是迭代次数限制。
+    Agent 会持续工作直到：
+    1. 任务完成
+    2. 需要用户输入
+    3. 遇到无法解决的问题
+    """
     
     def __init__(
         self,
         llm_provider: str = "deepseek",
         llm_model: str = "deepseek-chat",
         api_key: str = "",
-        max_retries: int = 3
+        max_retries_per_error: int = 3,
+        prompt_type: str = "default"
     ):
         self.llm_engine = create_llm_engine(
             provider=llm_provider,
@@ -30,7 +49,8 @@ class SimpleLinuxAgent:
         self.tools = get_all_tools()
         self.llm_with_tools = None
         self._current_thread_id = str(uuid.uuid4())
-        self.max_retries = max_retries
+        self.max_retries_per_error = max_retries_per_error
+        self.prompt_type = prompt_type
     
     async def initialize(self) -> None:
         """Initialize the agent with tools."""
@@ -39,115 +59,192 @@ class SimpleLinuxAgent:
         for tool in self.tools:
             print(f"   - {tool.name}: {tool.description[:40]}...")
     
+    def _get_task_oriented_prompt(self) -> str:
+        """获取以任务为导向的系统提示词"""
+        base_prompt = get_prompt(self.prompt_type)
+        
+        task_completion_instructions = """
+
+## 任务完成机制
+
+你必须在回复中明确标注任务状态。在你的最终回复末尾，使用以下格式之一：
+
+- `[STATUS: COMPLETED]` - 任务已完成，用户的问题已解决
+- `[STATUS: NEEDS_INPUT]` - 需要用户提供更多信息才能继续
+- `[STATUS: FAILED: 原因]` - 任务失败，说明原因
+- `[STATUS: IN_PROGRESS]` - 任务仍在进行中，需要继续执行工具
+
+### 重要规则
+
+1. **持续工作直到完成**: 如果任务未完成，继续调用工具，不要停止
+2. **不要过早结束**: 只有当你确信问题已解决时才标记 COMPLETED
+3. **主动解决问题**: 遇到错误时，先尝试搜索解决方案，不要立即放弃
+4. **清晰沟通**: 如果需要用户输入，明确说明需要什么信息
+
+### 判断任务完成的标准
+
+- 用户要求的操作已执行成功
+- 用户的问题已得到回答
+- 所有必要的步骤都已完成
+- 结果已向用户展示
+
+### 示例
+
+用户: "查看系统内存使用情况"
+→ 调用 get_memory_info
+→ 展示结果
+→ [STATUS: COMPLETED]
+
+用户: "安装 nginx"
+→ 调用 run_command 安装
+→ 如果失败，搜索解决方案
+→ 重试或报告问题
+→ [STATUS: COMPLETED] 或 [STATUS: FAILED: 原因]
+"""
+        return base_prompt + task_completion_instructions
+    
+    def _parse_status(self, content: str) -> tuple[TaskStatus, str]:
+        """从回复中解析任务状态"""
+        content_lower = content.lower()
+        
+        if "[status: completed]" in content_lower:
+            return TaskStatus.COMPLETED, content.replace("[STATUS: COMPLETED]", "").strip()
+        elif "[status: needs_input]" in content_lower:
+            return TaskStatus.NEEDS_INPUT, content.replace("[STATUS: NEEDS_INPUT]", "").strip()
+        elif "[status: failed" in content_lower:
+            return TaskStatus.FAILED, content
+        elif "[status: in_progress]" in content_lower:
+            return TaskStatus.IN_PROGRESS, content.replace("[STATUS: IN_PROGRESS]", "").strip()
+        
+        # 如果没有明确状态，根据内容判断
+        # 有工具调用 = 进行中，无工具调用 = 可能完成
+        return TaskStatus.IN_PROGRESS, content
+    
     async def chat(self, message: str) -> str:
-        """Send a message and get a response with auto-retry and search fallback."""
+        """基于任务完成状态的对话循环"""
         if not self.llm_with_tools:
             await self.initialize()
         
-        system_prompt = """你是一个智能 Linux 系统管理助手，具备自主学习和问题解决能力。
-
-## 可用工具
-- get_system_stats: 获取 CPU、内存、磁盘使用情况
-- get_cpu_info: 获取详细 CPU 信息
-- get_memory_info: 获取详细内存信息
-- get_disk_info: 获取磁盘信息
-- list_services: 列出系统服务
-- web_search: 搜索互联网获取信息、教程、文档
-- fetch_webpage: 获取网页详细内容
-- run_command: 执行 Linux 命令
-
-## 工作策略
-1. 首先尝试使用系统工具或命令解决问题
-2. 如果遇到错误或不确定如何操作，使用 web_search 搜索解决方案
-3. 找到相关文档后，使用 fetch_webpage 获取详细内容
-4. 根据搜索到的信息重新尝试解决问题
-5. 始终向用户解释你的思考过程和采取的行动
-
-## 错误处理
-- 如果命令执行失败，分析错误信息
-- 搜索错误信息以找到解决方案
-- 尝试不同的方法，最多重试 3 次
-- 如果仍然失败，向用户解释原因并提供建议"""
-
+        system_prompt = self._get_task_oriented_prompt()
+        
         messages = [
             SystemMessage(content=system_prompt),
             HumanMessage(content=message)
         ]
         
-        max_iterations = 10
-        error_count = 0
-        last_error = None
-        attempted_solutions = []
+        # 错误追踪
+        error_tracker = {}  # {error_type: count}
+        total_tool_calls = 0
+        consecutive_no_progress = 0
+        last_tool_results = []
         
-        for iteration in range(max_iterations):
-            # Call LLM
+        while True:
+            # 调用 LLM
             response = await self.llm_with_tools.ainvoke(messages)
             messages.append(response)
             
-            # Check for tool calls
+            # 如果没有工具调用，检查状态并返回
             if not response.tool_calls:
-                return response.content
+                status, clean_content = self._parse_status(response.content)
+                
+                if status == TaskStatus.COMPLETED:
+                    print("   ✅ Task completed")
+                    return clean_content
+                elif status == TaskStatus.NEEDS_INPUT:
+                    print("   ❓ Needs user input")
+                    return clean_content
+                elif status == TaskStatus.FAILED:
+                    print("   ❌ Task failed")
+                    return clean_content
+                else:
+                    # 没有工具调用但也没有明确完成状态
+                    # 可能是 LLM 忘记标记了，假设已完成
+                    consecutive_no_progress += 1
+                    if consecutive_no_progress >= 2:
+                        return response.content
+                    # 提醒 LLM 标记状态
+                    messages.append(HumanMessage(
+                        content="请确认任务是否完成，并在回复末尾标注状态 [STATUS: COMPLETED] 或继续执行。"
+                    ))
+                    continue
             
-            # Execute tool calls
+            # 重置无进展计数
+            consecutive_no_progress = 0
+            
+            # 执行工具调用
+            current_results = []
             for tool_call in response.tool_calls:
                 tool_name = tool_call["name"]
                 tool_args = tool_call["args"]
                 tool_id = tool_call["id"]
                 
-                print(f"   🔧 [{iteration+1}] Calling: {tool_name}")
+                total_tool_calls += 1
+                print(f"   🔧 [{total_tool_calls}] {tool_name}")
                 if tool_args:
-                    args_preview = str(tool_args)[:50]
-                    print(f"      Args: {args_preview}...")
+                    args_str = str(tool_args)
+                    if len(args_str) > 60:
+                        args_str = args_str[:60] + "..."
+                    print(f"      Args: {args_str}")
                 
-                # Execute the tool
+                # 执行工具
                 result = await execute_tool(tool_name, tool_args)
+                current_results.append((tool_name, result))
                 
-                # Check if result is an error
+                # 检查错误
                 try:
                     result_data = json.loads(result)
                     is_error = result_data.get("error", False)
+                    error_msg = result_data.get("message", "")
                 except:
                     is_error = False
+                    error_msg = ""
                 
                 if is_error:
-                    error_count += 1
-                    last_error = result
-                    print(f"   ❌ Error #{error_count}: {result_data.get('message', 'Unknown')[:60]}")
+                    # 追踪错误
+                    error_key = f"{tool_name}:{error_msg[:50]}"
+                    error_tracker[error_key] = error_tracker.get(error_key, 0) + 1
                     
-                    # If we've had multiple errors, suggest searching
-                    if error_count >= self.max_retries and tool_name not in ["web_search", "fetch_webpage"]:
-                        # Add a hint to search for solutions
-                        search_hint = f"""
-操作失败了 {error_count} 次。错误信息: {result_data.get('message', 'Unknown')}
+                    print(f"   ❌ Error: {error_msg[:60]}")
+                    
+                    # 检查是否重复错误太多次
+                    if error_tracker[error_key] >= self.max_retries_per_error:
+                        # 添加提示让 LLM 优先查阅官方文档
+                        hint = f"""
+这个错误已经出现 {error_tracker[error_key]} 次了: {error_msg}
 
-请使用 web_search 工具搜索这个错误的解决方案，或者搜索相关的官方文档来找到正确的方法。
-之前尝试过的方案: {attempted_solutions}
+请按以下优先级尝试解决:
+1. **优先查阅官方文档**: 使用 web_search 搜索 "官方文档 + 关键词" 或 "official docs + keyword"
+2. 使用 fetch_webpage 获取官方文档的详细内容
+3. 根据官方文档的指导重新尝试
+4. 如果官方文档没有答案，再搜索社区解决方案
+5. 如果确实无法解决，标记 [STATUS: FAILED: 原因]
 """
                         messages.append(ToolMessage(content=result, tool_call_id=tool_id))
-                        messages.append(HumanMessage(content=search_hint))
+                        messages.append(HumanMessage(content=hint))
                         continue
                 else:
-                    # Success - reset error count
-                    if error_count > 0:
-                        print(f"   ✅ Success after {error_count} retries!")
-                    error_count = 0
-                    
-                    # Track what we tried
-                    if tool_name == "run_command":
-                        attempted_solutions.append(tool_args.get("command", ""))
+                    print(f"   ✓ Success")
                 
                 messages.append(ToolMessage(content=result, tool_call_id=tool_id))
-        
-        return "达到最大迭代次数。请尝试简化您的请求或分步骤执行。"
+            
+            # 检测循环（相同的工具调用产生相同的结果）
+            if current_results == last_tool_results:
+                consecutive_no_progress += 1
+                if consecutive_no_progress >= 3:
+                    messages.append(HumanMessage(
+                        content="检测到重复操作。请尝试不同的方法，或者如果任务已完成请标记 [STATUS: COMPLETED]。"
+                    ))
+            else:
+                last_tool_results = current_results
     
     async def run_interactive(self) -> None:
         """Run in interactive mode."""
         await self.initialize()
         
         print("\n" + "=" * 60)
-        print("🤖 Linux Agent - 智能助手模式")
+        print("🤖 Linux Agent - 任务导向模式")
         print("=" * 60)
-        print("特性: 自动重试 + 搜索回退 + 文档查阅")
+        print("特性: 持续工作直到任务完成")
         print("输入 'quit' 退出, 'help' 查看帮助")
         print("-" * 60 + "\n")
         
@@ -170,15 +267,16 @@ class SimpleLinuxAgent:
   - 搜索 Docker 安装教程
   - 执行 df -h 命令
   - 如何配置 SSH 免密登录
+  - 创建一个 Python 脚本来监控 CPU
 """)
                     continue
                 
-                print("\n🤔 Thinking...\n")
+                print("\n🤔 Working on your task...\n")
                 response = await self.chat(user_input)
                 print(f"\nAgent: {response}\n")
                 
             except KeyboardInterrupt:
-                print("\n\nInterrupted. Type 'quit' to exit.\n")
+                print("\n\n⚠️ Interrupted. Type 'quit' to exit.\n")
             except EOFError:
                 print("\nGoodbye! 👋")
                 break
@@ -207,7 +305,8 @@ async def main():
         llm_provider=provider,
         llm_model=model,
         api_key=api_key,
-        max_retries=3
+        max_retries_per_error=3,
+        prompt_type="default"
     )
     
     await agent.run_interactive()

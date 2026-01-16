@@ -3,7 +3,15 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from langchain_core.language_models import BaseChatModel
+# 兼容不同版本的 langchain
+try:
+    from langchain_core.language_models.chat_models import BaseChatModel
+except ImportError:
+    try:
+        from langchain_core.language_models import BaseChatModel
+    except ImportError:
+        from langchain.chat_models.base import BaseChatModel
+
 from langchain_core.messages import BaseMessage
 
 from ..common.models import ToolSchema
@@ -91,17 +99,23 @@ class LLMEngine(ABC):
 
 
 class OpenAIEngine(LLMEngine):
-    """OpenAI GPT engine implementation."""
+    """OpenAI GPT engine implementation (also supports OpenAI-compatible APIs)."""
     
     def _create_llm(self) -> BaseChatModel:
         from langchain_openai import ChatOpenAI
         
-        return ChatOpenAI(
-            model=self.model,
-            api_key=self.api_key,
-            temperature=self.options.get("temperature", 0.7),
-            max_tokens=self.options.get("max_tokens"),
-        )
+        kwargs = {
+            "model": self.model,
+            "api_key": self.api_key,
+            "temperature": self.options.get("temperature", 0.7),
+            "max_tokens": self.options.get("max_tokens"),
+        }
+        
+        # 支持自定义 API 端点（如第三方 Claude API）
+        if self.options.get("base_url"):
+            kwargs["base_url"] = self.options["base_url"]
+        
+        return ChatOpenAI(**kwargs)
 
 
 class ClaudeEngine(LLMEngine):
@@ -110,12 +124,18 @@ class ClaudeEngine(LLMEngine):
     def _create_llm(self) -> BaseChatModel:
         from langchain_anthropic import ChatAnthropic
         
-        return ChatAnthropic(
-            model=self.model,
-            api_key=self.api_key,
-            temperature=self.options.get("temperature", 0.7),
-            max_tokens=self.options.get("max_tokens", 4096),
-        )
+        kwargs = {
+            "model": self.model,
+            "api_key": self.api_key,
+            "temperature": self.options.get("temperature", 0.7),
+            "max_tokens": self.options.get("max_tokens", 4096),
+        }
+        
+        # 支持自定义 API 端点
+        if self.options.get("base_url"):
+            kwargs["base_url"] = self.options["base_url"]
+        
+        return ChatAnthropic(**kwargs)
 
 
 class DeepSeekEngine(LLMEngine):

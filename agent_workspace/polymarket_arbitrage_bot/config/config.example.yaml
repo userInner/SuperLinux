@@ -1,0 +1,184 @@
+# Polymarket 套利机器人配置
+
+polymarket:
+  # API配置
+  api_base_url: "https://clob.polymarket.com"
+  api_key: "your_api_key_here"
+  api_secret: "your_api_secret_here"
+  
+  # 连接配置
+  timeout: 30
+  retry_attempts: 3
+  retry_delay: 1
+  
+  # WebSocket配置
+  websocket_url: "wss://clob-ws.polymarket.com"
+  reconnect_interval: 5
+
+arbitrage:
+  # 套利参数
+  min_profit_threshold: 0.005  # 最小利润阈值（0.5%）
+  max_slippage: 0.001          # 最大滑点（0.1%）
+  transaction_fee: 0.002       # 交易手续费（0.2%）
+  check_interval: 5            # 检查间隔（秒）
+  
+  # 市场过滤
+  min_market_liquidity: 10000  # 最小市场流动性（USDC）
+  max_days_to_expiry: 365      # 最大到期天数
+  min_days_to_expiry: 1        # 最小到期天数
+  
+  # 机会排序
+  sort_by: "profit_percentage"  # 排序方式：profit_percentage, profit_amount, annualized_return
+  sort_order: "desc"           # 排序顺序：asc, desc
+
+trading:
+  # 交易限制
+  max_position_size: 1000      # 最大仓位（USDC）
+  min_position_size: 10        # 最小仓位（USDC）
+  max_leverage: 1.0            # 最大杠杆
+  
+  # 风险控制
+  stop_loss_percentage: 0.05   # 止损百分比（5%）
+  take_profit_percentage: 0.10 # 止盈百分比（10%）
+  max_drawdown: 0.20           # 最大回撤（20%）
+  
+  # 执行策略
+  execution_delay: 0.1         # 执行延迟（秒）
+  partial_fill_ok: true        # 允许部分成交
+
+monitoring:
+  # 监控配置
+  enable_realtime_monitoring: true
+  enable_price_alerts: true
+  enable_arbitrage_alerts: true
+  
+  # 通知配置
+  enable_email_alerts: false
+  enable_telegram_alerts: false
+  enable_discord_alerts: false
+  
+  # 检查频率
+  market_scan_interval: 60     # 市场扫描间隔（秒）
+  price_update_interval: 5     # 价格更新间隔（秒）
+  report_interval: 300         # 报告生成间隔（秒）
+
+logging:
+  # 日志配置
+  level: "INFO"
+  file: "logs/arbitrage.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # 日志轮转
+  max_file_size: 10485760      # 10MB
+  backup_count: 5
+  
+  # 控制台输出
+  console_enabled: true
+  console_format: "%(asctime)s - %(levelname)s - %(message)s"
+
+database:
+  # 数据库配置
+  enabled: true
+  type: "sqlite"               # sqlite, postgresql, mysql
+  url: "sqlite:///data/arbitrage.db"
+  
+  # 连接池
+  pool_size: 10
+  max_overflow: 20
+  pool_recycle: 3600
+  
+  # 缓存配置
+  cache_enabled: true
+  cache_ttl: 300               # 缓存过期时间（秒）
+
+cache:
+  # Redis配置
+  enabled: false
+  url: "redis://localhost:6379/0"
+  
+  # 缓存策略
+  market_data_ttl: 60          # 市场数据缓存时间（秒）
+  price_data_ttl: 5            # 价格数据缓存时间（秒）
+  arbitrage_ttl: 30            # 套利机会缓存时间（秒）
+
+notifications:
+  # 邮件配置
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    username: "your_email@gmail.com"
+    password: "your_email_password"
+    from_address: "your_email@gmail.com"
+    to_addresses: ["recipient1@gmail.com", "recipient2@gmail.com"]
+  
+  # Telegram配置
+  telegram:
+    enabled: false
+    bot_token: "your_telegram_bot_token"
+    chat_id: "your_telegram_chat_id"
+  
+  # Discord配置
+  discord:
+    enabled: false
+    webhook_url: "your_discord_webhook_url"
+
+visualization:
+  # 图表配置
+  enabled: true
+  output_dir: "reports/charts"
+  
+  # 图表类型
+  generate_profit_chart: true
+  generate_opportunity_chart: true
+  generate_market_heatmap: true
+  
+  # 图表样式
+  theme: "darkgrid"
+  palette: "viridis"
+  figure_size: [12, 8]
+
+api_server:
+  # API服务器配置
+  enabled: false
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  
+  # 认证
+  require_auth: true
+  api_keys: ["your_api_key_1", "your_api_key_2"]
+  
+  # 速率限制
+  rate_limit_enabled: true
+  rate_limit_per_minute: 60
+
+performance:
+  # 性能监控
+  enabled: true
+  metrics_interval: 60         # 指标收集间隔（秒）
+  
+  # 监控指标
+  monitor_cpu: true
+  monitor_memory: true
+  monitor_network: true
+  monitor_disk: true
+  
+  # 报警阈值
+  cpu_threshold: 80            # CPU使用率阈值（%）
+  memory_threshold: 80         # 内存使用率阈值（%）
+  disk_threshold: 90           # 磁盘使用率阈值（%）
+
+security:
+  # 安全配置
+  ssl_verify: true
+  api_key_encryption: true
+  sensitive_data_masking: true
+  
+  # 访问控制
+  allowed_ips: ["127.0.0.1", "192.168.1.0/24"]
+  blocked_ips: []
+  
+  # 审计日志
+  audit_log_enabled: true
+  audit_log_file: "logs/audit.log"
