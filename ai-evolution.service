@@ -1,0 +1,19 @@
+[Unit]
+Description=AI Infinite Evolution Service
+After=network.target
+
+[Service]
+Type=simple
+User=pt
+WorkingDirectory=/home/pt/mcp_server
+ExecStart=/usr/bin/python3 /home/pt/mcp_server/infinite_evolution.py --interval 30
+Restart=always
+RestartSec=10
+StandardOutput=append:/home/pt/mcp_server/evolution.log
+StandardError=append:/home/pt/mcp_server/evolution.log
+
+# 环境变量
+Environment="PYTHONUNBUFFERED=1"
+
+[Install]
+WantedBy=multi-user.target

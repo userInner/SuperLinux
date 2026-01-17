@@ -1,0 +1,30 @@
+{
+  "4caaaa7a4888": {
+    "pattern_id": "4caaaa7a4888",
+    "commands": [
+      "df -h",
+      "free -h",
+      "uptime",
+      "ps aux | head -10"
+    ],
+    "description": "自动生成的 system_check 工具",
+    "usage_count": 9,
+    "first_used": "2026-01-17T18:33:31.854593",
+    "last_used": "2026-01-17T18:36:13.701865",
+    "task_type": "system_check"
+  },
+  "2a0f1f120834": {
+    "pattern_id": "2a0f1f120834",
+    "commands": [
+      "git pull",
+      "npm install",
+      "npm run build",
+      "systemctl restart myapp"
+    ],
+    "description": "自动生成的 deployment 工具",
+    "usage_count": 2,
+    "first_used": "2026-01-17T18:34:04.722680",
+    "last_used": "2026-01-17T18:34:04.722932",
+    "task_type": "deployment"
+  }
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "id": "d89fdc52b7b0",
+    "improvement_type": "prompt",
+    "problem_identified": "成功率低 (60%)",
+    "solution_applied": "在 prompt 中添加错误处理指导",
+    "before_metrics": {
+      "success_rate": 0.6,
+      "error_rate": 0.4
+    },
+    "after_metrics": {
+      "success_rate": 0.85,
+      "error_rate": 0.15
+    },
+    "effectiveness": 0.5208333333333334,
+    "timestamp": "2026-01-17T15:37:16.264486",
+    "notes": ""
+  },
+  {
+    "id": "fcfa4b6296ce",
+    "improvement_type": "prompt",
+    "problem_identified": "成功率低 (60%)",
+    "solution_applied": "在 prompt 中添加错误处理指导",
+    "before_metrics": {
+      "success_rate": 0.6,
+      "error_rate": 0.4
+    },
+    "after_metrics": {
+      "success_rate": 0.85,
+      "error_rate": 0.15
+    },
+    "effectiveness": 0.5208333333333334,
+    "timestamp": "2026-01-17T15:38:23.771793",
+    "notes": ""
+  }
+]

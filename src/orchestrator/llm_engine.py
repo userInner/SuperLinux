@@ -167,6 +167,24 @@ class GeminiEngine(LLMEngine):
         )
 
 
+class GLMEngine(LLMEngine):
+    """Zhipu GLM engine implementation (OpenAI-compatible API)."""
+    
+    def _create_llm(self) -> BaseChatModel:
+        from langchain_openai import ChatOpenAI
+        
+        # 如果指定了 base_url，使用自定义的（比如 coding API）
+        base_url = self.options.get("base_url", "https://open.bigmodel.cn/api/paas/v4")
+        
+        return ChatOpenAI(
+            model=self.model,
+            api_key=self.api_key,
+            base_url=base_url,
+            temperature=self.options.get("temperature", 0.7),
+            max_tokens=self.options.get("max_tokens"),
+        )
+
+
 def create_llm_engine(
     provider: str,
     model: str,
@@ -192,6 +210,8 @@ def create_llm_engine(
         "anthropic": ClaudeEngine,
         "deepseek": DeepSeekEngine,
         "gemini": GeminiEngine,
+        "glm": GLMEngine,
+        "zhipu": GLMEngine,
     }
     
     engine_class = engines.get(provider.lower())

@@ -1,0 +1,148 @@
+[
+  {
+    "timestamp": "2026-01-17T18:06:41.866011",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_9249af84.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "whoami"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:06:41.866096",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180641",
+      "issue_type": "misunderstanding",
+      "problem": "经常误将文件编辑理解为创建新文件"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:06:41.866283",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180641",
+      "issue_type": "misunderstanding",
+      "problem": "经常误将文件编辑理解为创建新文件"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:06:41.867665",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180641",
+      "issue_type": "misunderstanding",
+      "problem": "经常误将文件编辑理解为创建新文件"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:06:41.868036",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180641",
+      "issue_type": "wrong_tool",
+      "problem": "使用 read_file 而非 list_directory 列出目录"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:06:41.868282",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180641",
+      "issue_type": "missing_step",
+      "problem": "忘记验证文件是否存在后再编辑"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:07:23.667941",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_9249af84.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "whoami"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:07:23.668243",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_9249af84.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "whoami"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:07:23.668491",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_9249af84.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "whoami"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:07:23.670588",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180723",
+      "issue_type": "misunderstanding",
+      "problem": "经常误将文件编辑理解为创建新文件"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:07:23.671038",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180723",
+      "issue_type": "misunderstanding",
+      "problem": "经常误将文件编辑理解为创建新文件"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:07:23.671398",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180723",
+      "issue_type": "misunderstanding",
+      "problem": "经常误将文件编辑理解为创建新文件"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:07:23.671873",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180723",
+      "issue_type": "wrong_tool",
+      "problem": "使用 read_file 而非 list_directory 列出目录"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:07:23.672300",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117180723",
+      "issue_type": "missing_step",
+      "problem": "忘记验证文件是否存在后再编辑"
+    }
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "correction_id": "corr_20260117183331",
+    "timestamp": "2026-01-17T18:33:31.858601",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部",
+    "suggested_fix": "在检查系统状态时，使用 get_system_stats() 而不是单独的 CPU 检查",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117183331",
+    "timestamp": "2026-01-17T18:33:31.858888",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部",
+    "suggested_fix": "在检查系统状态时，使用 get_system_stats() 而不是单独的 CPU 检查",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117183331",
+    "timestamp": "2026-01-17T18:33:31.859135",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部",
+    "suggested_fix": "在检查系统状态时，使用 get_system_stats() 而不是单独的 CPU 检查",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117183404",
+    "timestamp": "2026-01-17T18:34:04.715253",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部",
+    "suggested_fix": "在检查系统状态时，使用 get_system_stats() 而不是单独的 CPU 检查",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117183404",
+    "timestamp": "2026-01-17T18:34:04.716962",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部",
+    "suggested_fix": "在检查系统状态时，使用 get_system_stats() 而不是单独的 CPU 检查",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117183404",
+    "timestamp": "2026-01-17T18:34:04.717361",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部",
+    "suggested_fix": "在检查系统状态时，使用 get_system_stats() 而不是单独的 CPU 检查",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117183404",
+    "timestamp": "2026-01-17T18:34:04.723157",
+    "issue_type": "wrong_tool",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常用 run_command 执行简单的文件读取",
+    "suggested_fix": "应该使用 read_file 工具来读取文件",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117183613",
+    "timestamp": "2026-01-17T18:36:13.705198",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部",
+    "suggested_fix": "在检查系统状态时，使用 get_system_stats() 而不是单独的 CPU 检查",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117183613",
+    "timestamp": "2026-01-17T18:36:13.707026",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部",
+    "suggested_fix": "在检查系统状态时，使用 get_system_stats() 而不是单独的 CPU 检查",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117183613",
+    "timestamp": "2026-01-17T18:36:13.707567",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部",
+    "suggested_fix": "在检查系统状态时，使用 get_system_stats() 而不是单独的 CPU 检查",
+    "effectiveness": 0.0
+  }
+]

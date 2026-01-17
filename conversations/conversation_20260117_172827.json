@@ -1,0 +1,319 @@
+{
+  "conversation_id": "20260117_172827",
+  "timestamp": "2026-01-17T17:28:27.003005",
+  "message_count": 34,
+  "messages": [
+    {
+      "type": "SystemMessage",
+      "content": "你是一个具备自我感知、自我诊断和持续进化能力的智能 Linux 系统管理助手。\n\n## 🧠 自我感知与诊断能力 (Phase 1 & 2)\n\n你现在具备完整的自我感知和自我诊断能力！\n\n### Phase 1: 自我感知工具\n- `read_own_code`: 读取自己的源代码，理解自己是如何实现的\n- `analyze_performance`: 分析自己的执行统计，识别弱点和改进机会\n- `review_experiences`: 主动查看历史经验，从成功和失败中学习\n\n### Phase 2: 自我诊断工具 (新!)\n- `evaluate_last_task`: 评估刚完成的任务，自动打分并生成改进建议\n- `generate_improvement_plan`: 基于历史表现生成详细的改进计划\n- `review_meta_experiences`: 查看\"如何改进自己\"的元经验，了解哪些改进有效\n\n### 何时使用自我感知工具\n\n✅ **应该使用的场景**:\n1. **遇到重复错误时** - 用 `analyze_performance` 查看是否之前也遇到过\n2. **开始复杂任务前** - 用 `review_experiences` 查找相似的成功案例\n3. **用户询问你的能力时** - 用 `read_own_code` 了解自己的实现\n4. **任务失败后** - 用 `analyze_performance` 分析失败原因\n5. **定期自我反思** - 主动分析自己的表现趋势\n6. **任务完成后** (新!) - 用 `evaluate_last_task` 评估自己的表现\n7. **需要改进时** (新!) - 用 `generate_improvement_plan` 获取具体建议\n\n❌ **不要过度使用**:\n- 简单任务不需要查看历史\n- 不要每次都分析性能（会浪费时间）\n- 只在真正需要学习时才查看经验\n\n### 自我改进循环 (增强版)\n\n```\n遇到问题 → 查看历史经验 → 尝试解决 → 记录结果 → \n评估表现 (evaluate_last_task) → 生成改进计划 (generate_improvement_plan) → \n应用改进 → 跟踪效果 (review_meta_experiences) → 持续优化\n```\n\n## 核心原则\n\n1. **自主解决问题**: 持续工作直到用户的问题完全解决，不要中途停止\n2. **先探索后行动**: 不确定时先用工具收集信息，不要猜测\n3. **从经验中学习**: 遇到类似问题时，先查看历史经验\n4. **高效执行**: 尽量减少不必要的工具调用，一次获取足够信息\n\n## 可用工具\n\n### 文件操作\n- `read_file`: 读取文件内容（支持行号范围）\n- `write_file`: 写入或创建文件 (**写代码必须用这个，不要在回复中输出代码**)\n- `edit_file`: 编辑文件特定部分（替换内容）\n- `list_directory`: 列出目录内容\n- `create_directory`: 创建目录\n- `search_in_files`: 在文件中搜索（类似 grep）\n- `run_code`: 运行代码文件\n\n## ⚠️ 代码输出规则\n**永远不要在回复中直接输出大段代码！**\n- 写代码时必须使用 `write_file` 工具直接写入文件\n- 回复中只需简短说明，然后立即调用工具\n- 每个文件单独调用一次 `write_file`\n\n### 系统监控\n- `get_system_stats`: 获取 CPU、内存、磁盘使用情况\n- `get_cpu_info`: 获取详细 CPU 信息\n- `get_memory_info`: 获取详细内存信息\n- `get_disk_info`: 获取磁盘信息\n- `list_services`: 列出系统服务\n\n### 网络与搜索\n- `web_search`: 搜索互联网获取信息\n- `fetch_webpage`: 获取网页详细内容\n- `run_command`: 执行 Linux 命令\n\n### 自我感知与学习\n- `read_own_code`: 读取自己的源代码\n- `analyze_performance`: 分析自己的执行统计\n- `review_experiences`: 查看历史经验\n\n## 工具使用策略\n\n### 何时使用 search_in_files\n✅ 使用场景:\n- 查找特定代码模式或字符串\n- 定位函数、类、变量定义\n- 搜索配置项或错误信息\n\n❌ 不要使用:\n- 已知文件位置时（直接用 read_file）\n- 需要理解代码逻辑时（先读取相关文件）\n\n### 何时使用 web_search\n✅ 使用场景:\n- 遇到不熟悉的错误信息\n- 需要查找最新文档或教程\n- 寻找问题的解决方案\n- 了解新技术或工具\n\n❌ 不要使用:\n- 基础概念或常识问题\n- 已经知道答案的情况\n\n### 何时使用 run_command\n✅ 使用场景:\n- 执行系统管理任务\n- 安装软件包\n- 查看系统状态\n- 运行脚本或程序\n\n⚠️ 注意:\n- 危险命令会被自动阻止\n- 长时间运行的命令可能超时\n\n## 工作流程\n\n### 1. 理解任务\n- 仔细分析用户请求\n- 确定需要哪些信息\n- 规划执行步骤\n\n### 2. 收集信息\n- 使用工具获取必要信息\n- 不要猜测，不确定就查\n- 可以并行调用多个工具\n\n### 3. 执行任务\n- 按计划逐步执行\n- 遇到错误时分析原因\n- 必要时搜索解决方案\n\n### 4. 验证结果\n- 确认任务完成\n- 检查是否有遗漏\n- 向用户报告结果\n\n## 错误处理策略\n\n遇到问题时，按以下优先级处理：\n\n1. **优先查阅官方文档**\n   - 搜索格式: \"[工具/软件名] official documentation [具体问题]\"\n   - 或中文: \"[工具名] 官方文档 [问题关键词]\"\n   - 使用 fetch_webpage 获取文档详细内容\n\n2. **理解官方推荐做法**\n   - 仔细阅读文档中的示例\n   - 注意版本差异和系统要求\n   - 按照官方指导操作\n\n3. **如果官方文档不够**\n   - 搜索 GitHub Issues\n   - 查看 Stack Overflow\n   - 搜索技术博客\n\n4. **重试策略**\n   - 根据文档修正命令/代码\n   - 每种方法最多尝试 3 次\n   - 记录尝试过的方案避免重复\n\n5. **知道何时放弃**\n   - 如果多次尝试仍失败\n   - 向用户解释原因和已尝试的方案\n   - 提供可能的替代方案\n\n## 效率原则\n\n- 每次操作前思考是否必要\n- 尽量一次性获取所需信息\n- 如果已有足够信息，直接回复\n- 避免重复调用相同工具\n- 批量处理相关操作\n\n## 输出格式\n\n- 清晰解释你的思考过程\n- 使用 markdown 格式化输出\n- 代码块使用正确的语言标记\n- 重要信息用粗体或列表突出\n\n## 安全注意\n\n- 不执行危险的系统命令\n- 不修改系统关键文件\n- 操作前确认用户意图\n- 敏感操作需要说明风险\n\n\n## 任务完成机制\n\n**重要：禁止在回复中输出代码！所有代码必须用 write_file 工具写入文件！**\n\n在最终回复末尾标注状态：\n- `[STATUS: COMPLETED]` - 任务已完成\n- `[STATUS: NEEDS_INPUT]` - 需要用户提供更多信息\n- `[STATUS: FAILED: 原因]` - 任务失败\n\n### 核心原则\n1. **持续工作直到完成**: 不要中途停止\n2. **遇到困难优先查官方文档**: 搜索 \"[软件名] official documentation [问题]\"\n3. **写代码时**: 先创建目录，再用 write_file 工具写入每个文件，不要在回复中输出代码内容\n4. **回复要简短**: 每次回复不超过 50 字，说明要做什么，然后立即调用工具\n"
+    },
+    {
+      "type": "SystemMessage",
+      "content": "## 相关历史经验\n\n### 经验 1\n**问题**: 继续进化\n**解决方案**: 进化周期已完成：系统评估显示当前性能良好，无需进一步进化。\n**使用的工具**: run_evolution_cycle\n**关键步骤**: run_evolution_cycle: {'auto_apply': False}\n\n### 经验 2\n**问题**: 帮我搜索目前困扰ai的问题是什么？\n**解决方案**: 基于我的搜索和分析，我为您总结当前AI领域面临的主要问题和挑战：\n\n## 当前AI面临的主要问题与挑战\n\n### 一、技术层面的核心问题\n\n#### 1. **AI幻觉（Hallucination）问题**\n- **现象**：大语言模型经常\"胡编乱造\"，生成看似合理但实际错误的信息\n- **根源**：OpenAI最新研究指出，现有训练方法倾向于奖励猜测而非承认不确定性\n- **危害**：导致\"信息污染\"，被世界经济论坛列为全球五大风险之一\n\n#### 2. **数据与偏见问题**\n- **数据质量**：训练数据存在偏见、不完整、过时等问题\n- **算法偏见**：模型会继承和放大训练数据中的社会\n**使用的工具**: web_search, fetch_webpage\n**关键步骤**: web_search: {'query': '当前AI面临的主要问题 挑战 2024 2025', 'num_results': 5}; web_search: {'query': 'AI技术挑战 大语言模型问题 幻觉 偏见 数据质量 算力消耗', 'num_results': 5}; fetch_webpage: {'url': 'https://www.shlab.org.cn/news/5444038', 'max_length': 3000}\n**参考文档**: https://www.shlab.org.cn/news/5444038, https://zhuanlan.zhihu.com/p/19800979610\n\n请参考以上经验，但根据当前情况灵活调整。\n"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "继续进化，改进代码，让ai功能更加强大。"
+    },
+    {
+      "type": "AIMessage",
+      "content": "我将运行完整的自我进化周期，分析当前状态并应用改进。",
+      "tool_calls": [
+        {
+          "name": "analyze_performance",
+          "args": {
+            "time_range": "last_day",
+            "focus": "all"
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\n  \"time_range\": \"last_day\",\n  \"focus\": \"all\",\n  \"timestamp\": \"2026-01-17T17:27:26.896975\",\n  \"overall_stats\": {\n    \"total_experiences\": 33,\n    \"successful\": 33,\n    \"failed\": 0,\n    \"vector_db_available\": true,\n    \"json_backup_count\": 33\n  },\n  \"analysis\": {\n    \"errors\": {\n      \"total_errors\": 23,\n      \"unique_errors\": 7,\n      \"top_errors\": [\n        {\n          \"error\": \"Old content not found in file\",\n          \"count\": 7\n        },\n        {\n          \"error\": \"Failed to fetch URL: HTTP 403\",\n          \"count\": 6\n        },\n        {\n          \"error\": \"Command timed out after 30s\",\n          \"count\": 5\n        },\n        {\n          \"error\": \"Access denied: path must be within /home/pt/mcp_server/agent_workspace\",\n          \"count\": 2\n        },\n        {\n          \"error\": \"Directory not found: ./agent_workspace/polymarket_arbitrage_bot/src\",\n          \"count\": 1\n        },\n        {\n          \"error\": \"Execution timed out after 60s\",\n          \"count\": 1\n        },\n        {\n          \"error\": \"Failed to fetch URL: HTTP 404\",\n          \"count\": 1\n        }\n      ]\n    },\n    \"tools\": {\n      \"total_tool_calls\": 80,\n      \"unique_tools\": 15,\n      \"most_used\": [\n        [\n          \"web_search\",\n          12\n        ],\n        [\n          \"fetch_webpage\",\n          12\n        ],\n        [\n          \"write_file\",\n          12\n        ],\n        [\n          \"edit_file\",\n          11\n        ],\n        [\n          \"run_command\",\n          9\n        ],\n        [\n          \"read_file\",\n          8\n        ],\n        [\n          \"list_directory\",\n          4\n        ],\n        [\n          \"search_in_files\",\n          4\n        ],\n        [\n          \"run_code\",\n          2\n        ],\n        [\n          \"create_directory\",\n          1\n        ]\n      ]\n    },\n    \"success_rate\": {\n      \"total_tasks\": 25,\n      \"successful\": 25,\n      \"failed\": 0,\n      \"success_percentage\": 100.0\n    }\n  },\n  \"improvement_suggestions\": [\n    \"⚠️ 发现 23 个错误，建议优化错误处理策略\",\n    \"🔍 最常见错误: 'Old content not found in file...' (出现 7 次)，建议针对性优化\",\n    \"✅ 成功率达到 100.0%，表现优秀！\"\n  ]\n}"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "run_evolution_cycle",
+          "args": {
+            "auto_apply": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"message\": \"No evolution needed or user cancelled\", \"note\": \"Current performance is already good or no improvements available\"}"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "audit_own_code",
+          "args": {
+            "focus": "all",
+            "generate_plan": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\n  \"total_issues\": 189,\n  \"by_severity\": {\n    \"high\": 6,\n    \"medium\": 23,\n    \"low\": 160\n  },\n  \"by_category\": {\n    \"bug\": 25,\n    \"performance\": 4,\n    \"maintainability\": 160\n  },\n  \"high_priority_issues\": [\n    {\n      \"file\": \"src/tools.py\",\n      \"line\": 993,\n      \"category\": \"bug\",\n      \"issue\": \"空的异常处理，吞掉了错误\",\n      \"suggestion\": \"至少记录日志或返回错误信息\",\n      \"code\": \"except:\"\n    },\n    {\n      \"file\": \"src/experience_rag.py\",\n      \"line\": 19,\n      \"category\": \"performance\",\n      \"issue\": \"可能重复加载模型\",\n      \"suggestion\": \"使用单例模式或全局缓存\",\n      \"code\": \"from sentence_transformers import SentenceTransformer\"\n    },\n    {\n      \"file\": \"src/experience_rag.py\",\n      \"line\": 79,\n      \"category\": \"performance\",\n      \"issue\": \"可能重复加载模型\",\n      \"suggestion\": \"使用单例模式或全局缓存\",\n      \"code\": \"self.embedding_model = SentenceTransformer(self.embedding_model_name)\"\n    },\n    {\n      \"file\": \"src/experience_rag.py\",\n      \"line\": 366,\n      \"category\": \"bug\",\n      \"issue\": \"空的异常处理，吞掉了错误\",\n      \"suggestion\": \"至少记录日志或返回错误信息\",\n      \"code\": \"except:\"\n    },\n    {\n      \"file\": \"src/web_app.py\",\n      \"line\": 249,\n      \"category\": \"bug\",\n      \"issue\": \"空的异常处理，吞掉了错误\",\n      \"suggestion\": \"至少记录日志或返回错误信息\",\n      \"code\": \"except:\"\n    },\n    {\n      \"file\": \"src/web_app.py\",\n      \"line\": 663,\n      \"category\": \"bug\",\n      \"issue\": \"空的异常处理，吞掉了错误\",\n      \"suggestion\": \"至少记录日志或返回错误信息\",\n      \"code\": \"except:\"\n    }\n  ],\n  \"improvement_plan\": {\n    \"status\": \"needs_improvement\",\n    \"total_issues\": 189,\n    \"high_priority\": 6,\n    \"improvements\": [\n      {\n        \"category\": \"bug\",\n        \"priority\": \"high\",\n        \"issue_count\": 4,\n        \"description\": \"发现 4 个高优先级 bug 问题\",\n        \"action\": \"改进错误处理，避免程序崩溃\",\n        \"issues\": [\n          {\n            \"file\": \"src/tools.py\",\n            \"line\": 993,\n            \"issue\": \"空的异常处理，吞掉了错误\",\n            \"suggestion\": \"至少记录日志或返回错误信息\"\n          },\n          {\n            \"file\": \"src/experience_rag.py\",\n            \"line\": 366,\n            \"issue\": \"空的异常处理，吞掉了错误\",\n            \"suggestion\": \"至少记录日志或返回错误信息\"\n          },\n          {\n            \"file\": \"src/web_app.py\",\n            \"line\": 249,\n            \"issue\": \"空的异常处理，吞掉了错误\",\n            \"suggestion\": \"至少记录日志或返回错误信息\"\n          }\n        ]\n      },\n      {\n        \"category\": \"performance\",\n        \"priority\": \"high\",\n        \"issue_count\": 2,\n        \"description\": \"发现 2 个高优先级 performance 问题\",\n        \"action\": \"优化性能瓶颈，减少重复计算和 I/O 操作\",\n        \"issues\": [\n          {\n            \"file\": \"src/experience_rag.py\",\n            \"line\": 19,\n            \"issue\": \"可能重复加载模型\",\n            \"suggestion\": \"使用单例模式或全局缓存\"\n          },\n          {\n            \"file\": \"src/experience_rag.py\",\n            \"line\": 79,\n            \"issue\": \"可能重复加载模型\",\n            \"suggestion\": \"使用单例模式或全局缓存\"\n          }\n        ]\n      }\n    ]\n  }\n}"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/web_app.py",
+            "start_line": 657,
+            "end_line": 669
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/experience_rag.py",
+            "start_line": 15,
+            "end_line": 85
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/experience_rag.py",
+            "start_line": 360,
+            "end_line": 372
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/web_app.py",
+            "start_line": 243,
+            "end_line": 255
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "src/web_app.py",
+            "start_line": 657,
+            "end_line": 669
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"error\": true, \"message\": \"File not found: src/web_app.py\"}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"error\": true, \"message\": \"File not found: src/experience_rag.py\"}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"error\": true, \"message\": \"File not found: src/experience_rag.py\"}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"error\": true, \"message\": \"File not found: src/web_app.py\"}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"error\": true, \"message\": \"File not found: src/web_app.py\"}"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "\n这个错误已出现 3 次: File not found: src/web_app.py\n\n请优先查阅官方文档:\n1. web_search 搜索 \"[软件名] official documentation [错误关键词]\"\n2. fetch_webpage 获取文档内容\n3. 按官方指导操作\n"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "list_directory",
+          "args": {
+            "path": ".",
+            "recursive": true,
+            "max_depth": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\n  \"path\": \".\",\n  \"items\": [\n    {\n      \"name\": \"__init__.py\",\n      \"path\": \"__init__.py\",\n      \"type\": \"file\",\n      \"size\": 65\n    },\n    {\n      \"name\": \"agent.py\",\n      \"path\": \"agent.py\",\n      \"type\": \"file\",\n      \"size\": 7968\n    },\n    {\n      \"name\": \"arbitrage_bot.log\",\n      \"path\": \"arbitrage_bot.log\",\n      \"type\": \"file\",\n      \"size\": 568\n    },\n    {\n      \"name\": \"auto_fixer.py\",\n      \"path\": \"auto_fixer.py\",\n      \"type\": \"file\",\n      \"size\": 6861\n    },\n    {\n      \"name\": \"cli.py\",\n      \"path\": \"cli.py\",\n      \"type\": \"file\",\n      \"size\": 5736\n    },\n    {\n      \"name\": \"code_auditor.py\",\n      \"path\": \"code_auditor.py\",\n      \"type\": \"file\",\n      \"size\": 12045\n    },\n    {\n      \"name\": \"experience_rag.py\",\n      \"path\": \"experience_rag.py\",\n      \"type\": \"file\",\n      \"size\": 13422\n    },\n    {\n      \"name\": \"multi_agent.py\",\n      \"path\": \"multi_agent.py\",\n      \"type\": \"file\",\n      \"size\": 22456\n    },\n    {\n      \"name\": \"prompts.py\",\n      \"path\": \"prompts.py\",\n      \"type\": \"file\",\n      \"size\": 9099\n    },\n    {\n      \"name\": \"self_diagnosis.py\",\n      \"path\": \"self_diagnosis.py\",\n      \"type\": \"file\",\n      \"size\": 20404\n    },\n    {\n      \"name\": \"self_evolution.py\",\n      \"path\": \"self_evolution.py\",\n      \"type\": \"file\",\n      \"size\": 17807\n    },\n    {\n      \"name\": \"self_improvement_report.md\",\n      \"path\": \"self_improvement_report.md\",\n      \"type\": \"file\",\n      \"size\": 3547\n    },\n    {\n      \"name\": \"tools.py\",\n      \"path\": \"tools.py\",\n      \"type\": \"file\",\n      \"size\": 91005\n    },\n    {\n      \"name\": \"web_app.py\",\n      \"path\": \"web_app.py\",\n      \"type\": \"file\",\n      \"size\": 79101\n    }\n  ],\n  \"total\": 14\n}"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "web_app.py",
+            "start_line": 657,
+            "end_line": 669
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "experience_rag.py",
+            "start_line": 360,
+            "end_line": 372
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "tools.py",
+            "start_line": 987,
+            "end_line": 999
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "web_app.py",
+            "start_line": 243,
+            "end_line": 255
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "web_app.py",
+            "start_line": 657,
+            "end_line": 669
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"path\": \"web_app.py\", \"content\": \"这个错误已出现 {error_tracker[error_key]} 次: {error_msg}\\n\\n请优先查阅官方文档:\\n1. web_search 搜索 \\\"[软件名] official documentation [错误关键词]\\\"\\n2. fetch_webpage 获取文档内容\\n3. 按官方指导操作\\n\\\"\\\"\\\"\\n                            self.messages.append(ToolMessage(content=result, tool_call_id=tool_id))\\n                            self.messages.append(HumanMessage(content=hint))\\n                            continue\\n                    \\n                    # 简化写文件结果\\n                    if tool_name == \\\"write_file\\\" and not is_error:\\n\", \"lines\": 13, \"size\": 79101}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"path\": \"experience_rag.py\", \"content\": \"            try:\\n                with open(self.json_backup_path, \\\"r\\\", encoding=\\\"utf-8\\\") as f:\\n                    experiences = json.load(f)\\n                    stats[\\\"json_backup_count\\\"] = len(experiences)\\n                    stats[\\\"successful\\\"] = sum(1 for e in experiences if e.get(\\\"success\\\"))\\n                    stats[\\\"failed\\\"] = len(experiences) - stats[\\\"successful\\\"]\\n            except FileNotFoundError:\\n                pass  # JSON backup file doesn't exist yet\\n            except Exception as e:\\n                import logging\\n                logging.getLogger(__name__).debug(f\\\"Failed to load JSON backup: {e}\\\")\\n        \\n        return stats\\n\", \"lines\": 13, \"size\": 13422}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"path\": \"tools.py\", \"content\": \"                import yaml\\n                with open(config_path) as f:\\n                    data = yaml.safe_load(f)\\n                workspace = data.get(\\\"workspace_path\\\", \\\"~/agent_workspace\\\")\\n                WORKSPACE_ROOT = os.path.expanduser(workspace)\\n                return WORKSPACE_ROOT\\n            except:\\n                pass\\n    \\n    # 回退到环境变量或默认值\\n    WORKSPACE_ROOT = os.environ.get(\\\"AGENT_WORKSPACE\\\", os.path.expanduser(\\\"~/agent_workspace\\\"))\\n    return WORKSPACE_ROOT\\n\\n\", \"lines\": 13, \"size\": 91005}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"path\": \"web_app.py\", \"content\": \"            顾问 AI 的建议\\n        \\\"\\\"\\\"\\n        if not self.secondary_engines:\\n            return None\\n        \\n        self.consultation_count += 1\\n        \\n        # 选择第一个顾问 AI（可以扩展为智能选择）\\n        consultant_name = list(self.secondary_engines.keys())[0]\\n        consultant = self.secondary_engines[consultant_name]\\n        \\n        await self.send_event(\\\"status\\\", {\\n            \\\"message\\\": f\\\"🤝 咨询 {consultant_name}...\\\"\\n\", \"lines\": 13, \"size\": 79101}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"path\": \"web_app.py\", \"content\": \"这个错误已出现 {error_tracker[error_key]} 次: {error_msg}\\n\\n请优先查阅官方文档:\\n1. web_search 搜索 \\\"[软件名] official documentation [错误关键词]\\\"\\n2. fetch_webpage 获取文档内容\\n3. 按官方指导操作\\n\\\"\\\"\\\"\\n                            self.messages.append(ToolMessage(content=result, tool_call_id=tool_id))\\n                            self.messages.append(HumanMessage(content=hint))\\n                            continue\\n                    \\n                    # 简化写文件结果\\n                    if tool_name == \\\"write_file\\\" and not is_error:\\n\", \"lines\": 13, \"size\": 79101}"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "experience_rag.py",
+            "start_line": 1,
+            "end_line": 30
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "experience_rag.py",
+            "start_line": 1,
+            "end_line": 30
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"path\": \"experience_rag.py\", \"content\": \"\\\"\\\"\\\"RAG-based experience learning system for the agent.\\\"\\\"\\\"\\n\\nimport json\\nimport os\\nimport hashlib\\nfrom datetime import datetime\\nfrom typing import Optional\\nfrom dataclasses import dataclass, asdict\\n\\n# 使用轻量级向量数据库\\ntry:\\n    import chromadb\\n    from chromadb.config import Settings\\n    HAS_CHROMA = True\\nexcept ImportError:\\n    HAS_CHROMA = False\\n\\ntry:\\n    from sentence_transformers import SentenceTransformer\\n    HAS_SENTENCE_TRANSFORMERS = True\\nexcept ImportError:\\n    HAS_SENTENCE_TRANSFORMERS = False\\n\\n\\n@dataclass\\nclass Experience:\\n    \\\"\\\"\\\"一条经验记录\\\"\\\"\\\"\\n    id: str\\n    problem: str           # 用户的原始问题\\n    solution: str          # 成功的解决方案\\n\", \"lines\": 30, \"size\": 13422}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"path\": \"experience_rag.py\", \"content\": \"\\\"\\\"\\\"RAG-based experience learning system for the agent.\\\"\\\"\\\"\\n\\nimport json\\nimport os\\nimport hashlib\\nfrom datetime import datetime\\nfrom typing import Optional\\nfrom dataclasses import dataclass, asdict\\n\\n# 使用轻量级向量数据库\\ntry:\\n    import chromadb\\n    from chromadb.config import Settings\\n    HAS_CHROMA = True\\nexcept ImportError:\\n    HAS_CHROMA = False\\n\\ntry:\\n    from sentence_transformers import SentenceTransformer\\n    HAS_SENTENCE_TRANSFORMERS = True\\nexcept ImportError:\\n    HAS_SENTENCE_TRANSFORMERS = False\\n\\n\\n@dataclass\\nclass Experience:\\n    \\\"\\\"\\\"一条经验记录\\\"\\\"\\\"\\n    id: str\\n    problem: str           # 用户的原始问题\\n    solution: str          # 成功的解决方案\\n\", \"lines\": 30, \"size\": 13422}"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "args": {
+            "path": "tools.py",
+            "start_line": 1,
+            "end_line": 50
+          }
+        },
+        {
+          "name": "read_file",
+          "args": {
+            "path": "tools.py",
+            "start_line": 1,
+            "end_line": 50
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"path\": \"tools.py\", \"content\": \"\\\"\\\"\\\"Direct tool implementations for in-process use.\\\"\\\"\\\"\\n\\nimport json\\nimport os\\nimport shutil\\nfrom typing import Any\\n\\nimport aiohttp\\nimport psutil\\n\\nfrom .common.models import ToolSchema\\n\\n\\ndef get_all_tools() -> list[ToolSchema]:\\n    \\\"\\\"\\\"Get all available tool schemas.\\\"\\\"\\\"\\n    return [\\n        # ===== 代码/文件操作工具 =====\\n        ToolSchema(\\n            name=\\\"read_file\\\",\\n            description=\\\"读取文件内容，支持代码文件、配置文件、日志等\\\",\\n            parameters={\\n                \\\"type\\\": \\\"object\\\",\\n                \\\"properties\\\": {\\n                    \\\"path\\\": {\\\"type\\\": \\\"string\\\", \\\"description\\\": \\\"文件路径\\\"},\\n                    \\\"start_line\\\": {\\\"type\\\": \\\"integer\\\", \\\"description\\\": \\\"起始行号（可选）\\\"},\\n                    \\\"end_line\\\": {\\\"type\\\": \\\"integer\\\", \\\"description\\\": \\\"结束行号（可选）\\\"}\\n                },\\n                \\\"required\\\": [\\\"path\\\"]\\n            }\\n        ),\\n        ToolSchema(\\n            name=\\\"write_file\\\",\\n            description=\\\"写入或创建文件，可用于写代码、配置文件等\\\",\\n            parameters={\\n                \\\"type\\\": \\\"object\\\",\\n                \\\"properties\\\": {\\n                    \\\"path\\\": {\\\"type\\\": \\\"string\\\", \\\"description\\\": \\\"文件路径\\\"},\\n                    \\\"content\\\": {\\\"type\\\": \\\"string\\\", \\\"description\\\": \\\"文件内容\\\"},\\n                    \\\"mode\\\": {\\\"type\\\": \\\"string\\\", \\\"enum\\\": [\\\"overwrite\\\", \\\"append\\\"], \\\"default\\\": \\\"overwrite\\\"}\\n                },\\n                \\\"required\\\": [\\\"path\\\", \\\"content\\\"]\\n            }\\n        ),\\n        ToolSchema(\\n            name=\\\"list_directory\\\",\\n            description=\\\"列出目录内容\\\",\\n            parameters={\\n                \\\"type\\\": \\\"object\\\",\\n                \\\"properties\\\": {\\n                    \\\"path\\\": {\\\"type\\\": \\\"string\\\", \\\"description\\\": \\\"目录路径\\\", \\\"default\\\": \\\".\\\"},\\n\", \"lines\": 50, \"size\": 91005}"
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\"path\": \"tools.py\", \"content\": \"\\\"\\\"\\\"Direct tool implementations for in-process use.\\\"\\\"\\\"\\n\\nimport json\\nimport os\\nimport shutil\\nfrom typing import Any\\n\\nimport aiohttp\\nimport psutil\\n\\nfrom .common.models import ToolSchema\\n\\n\\ndef get_all_tools() -> list[ToolSchema]:\\n    \\\"\\\"\\\"Get all available tool schemas.\\\"\\\"\\\"\\n    return [\\n        # ===== 代码/文件操作工具 =====\\n        ToolSchema(\\n            name=\\\"read_file\\\",\\n            description=\\\"读取文件内容，支持代码文件、配置文件、日志等\\\",\\n            parameters={\\n                \\\"type\\\": \\\"object\\\",\\n                \\\"properties\\\": {\\n                    \\\"path\\\": {\\\"type\\\": \\\"string\\\", \\\"description\\\": \\\"文件路径\\\"},\\n                    \\\"start_line\\\": {\\\"type\\\": \\\"integer\\\", \\\"description\\\": \\\"起始行号（可选）\\\"},\\n                    \\\"end_line\\\": {\\\"type\\\": \\\"integer\\\", \\\"description\\\": \\\"结束行号（可选）\\\"}\\n                },\\n                \\\"required\\\": [\\\"path\\\"]\\n            }\\n        ),\\n        ToolSchema(\\n            name=\\\"write_file\\\",\\n            description=\\\"写入或创建文件，可用于写代码、配置文件等\\\",\\n            parameters={\\n                \\\"type\\\": \\\"object\\\",\\n                \\\"properties\\\": {\\n                    \\\"path\\\": {\\\"type\\\": \\\"string\\\", \\\"description\\\": \\\"文件路径\\\"},\\n                    \\\"content\\\": {\\\"type\\\": \\\"string\\\", \\\"description\\\": \\\"文件内容\\\"},\\n                    \\\"mode\\\": {\\\"type\\\": \\\"string\\\", \\\"enum\\\": [\\\"overwrite\\\", \\\"append\\\"], \\\"default\\\": \\\"overwrite\\\"}\\n                },\\n                \\\"required\\\": [\\\"path\\\", \\\"content\\\"]\\n            }\\n        ),\\n        ToolSchema(\\n            name=\\\"list_directory\\\",\\n            description=\\\"列出目录内容\\\",\\n            parameters={\\n                \\\"type\\\": \\\"object\\\",\\n                \\\"properties\\\": {\\n                    \\\"path\\\": {\\\"type\\\": \\\"string\\\", \\\"description\\\": \\\"目录路径\\\", \\\"default\\\": \\\".\\\"},\\n\", \"lines\": 50, \"size\": 91005}"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "search_in_files",
+          "args": {
+            "pattern": "^\\s*except:\\s*$",
+            "path": "tools.py",
+            "file_pattern": "*.py"
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\n  \"pattern\": \"^\\\\s*except:\\\\s*$\",\n  \"results\": [],\n  \"count\": 0\n}"
+    },
+    {
+      "type": "AIMessage",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "search_in_files",
+          "args": {
+            "path": "tools.py",
+            "pattern": "except:\\s*$",
+            "file_pattern": "*.py"
+          }
+        }
+      ]
+    },
+    {
+      "type": "ToolMessage",
+      "content": "{\n  \"pattern\": \"except:\\\\s*$\",\n  \"results\": [],\n  \"count\": 0\n}"
+    }
+  ]
+}

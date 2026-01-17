@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ea44af01de73",
+    "type": "prompt",
+    "priority": "high",
+    "issue": "任务成功率偏低 (40.0%)",
+    "suggestion": "在 SYSTEM_PROMPT 中强化'先探索后行动'原则，要求 AI 在不确定时先使用工具收集信息",
+    "expected_improvement": "预计提升成功率 15-20%",
+    "affected_area": "prompts.py - SYSTEM_PROMPT_V2",
+    "evidence": [
+      "最近 5 个任务的平均成功率: 40.0%",
+      "建议添加更多错误处理指导"
+    ],
+    "timestamp": "2026-01-17T15:38:23.771485",
+    "status": "pending"
+  },
+  {
+    "id": "bd0bfbb56192",
+    "type": "tool",
+    "priority": "medium",
+    "issue": "工具使用种类较少 (只用了 1 种工具)",
+    "suggestion": "扩展工具集，添加更多专用工具（如 search_in_files, analyze_trends 等）",
+    "expected_improvement": "提高问题解决能力 25%",
+    "affected_area": "tools.py - 工具定义",
+    "evidence": [
+      "常用工具: ['run_command']",
+      "建议添加更多专用工具"
+    ],
+    "timestamp": "2026-01-17T15:38:23.771492",
+    "status": "pending"
+  },
+  {
+    "id": "ee0f58bf09df",
+    "type": "prompt",
+    "priority": "high",
+    "issue": "任务成功率偏低 (47.0%)",
+    "suggestion": "在 SYSTEM_PROMPT 中强化'先探索后行动'原则，要求 AI 在不确定时先使用工具收集信息",
+    "expected_improvement": "预计提升成功率 15-20%",
+    "affected_area": "prompts.py - SYSTEM_PROMPT_V2",
+    "evidence": [
+      "最近 5 个任务的平均成功率: 47.0%",
+      "建议添加更多错误处理指导"
+    ],
+    "timestamp": "2026-01-17T15:51:32.312887",
+    "status": "pending"
+  }
+]

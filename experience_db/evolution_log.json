@@ -1,0 +1,220 @@
+[
+  {
+    "cycle_id": "cycle_1_20260117_155132",
+    "start_time": "2026-01-17T15:51:34.324912",
+    "end_time": "2026-01-17T15:51:34.324922",
+    "before_metrics": {
+      "success_rate": 0.47,
+      "avg_efficiency": 74.0,
+      "avg_tool_usage": 18.0,
+      "error_count": 5
+    },
+    "improvements_applied": [
+      {
+        "type": "prompt",
+        "priority": "high",
+        "issue": "任务成功率偏低 (47.0%)",
+        "suggestion": "在 SYSTEM_PROMPT 中强化'先探索后行动'原则，要求 AI 在不确定时先使用工具收集信息",
+        "expected_improvement": "预计提升成功率 15-20%"
+      }
+    ],
+    "after_metrics": {
+      "success_rate": 0.47,
+      "avg_efficiency": 74.0,
+      "avg_tool_usage": 18.0,
+      "error_count": 5
+    },
+    "success": false,
+    "effectiveness": 0.0,
+    "rolled_back": true,
+    "rollback_reason": "改进效果不佳 (仅提升 0.0%)"
+  },
+  {
+    "timestamp": "2026-01-17T18:33:31.855434",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_4caaaa7a.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "ps aux | head -10"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:33:31.858698",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183331",
+      "issue_type": "misunderstanding",
+      "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:33:31.859019",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183331",
+      "issue_type": "misunderstanding",
+      "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:33:31.860662",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183331",
+      "issue_type": "misunderstanding",
+      "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:34:04.711798",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_4caaaa7a.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "ps aux | head -10"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:34:04.712060",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_4caaaa7a.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "ps aux | head -10"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:34:04.712281",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_4caaaa7a.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "ps aux | head -10"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:34:04.716790",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183404",
+      "issue_type": "misunderstanding",
+      "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:34:04.717220",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183404",
+      "issue_type": "misunderstanding",
+      "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:34:04.717617",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183404",
+      "issue_type": "misunderstanding",
+      "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:34:04.723521",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183404",
+      "issue_type": "wrong_tool",
+      "problem": "经常用 run_command 执行简单的文件读取"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:36:13.701280",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_4caaaa7a.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "ps aux | head -10"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:36:13.701686",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_4caaaa7a.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "ps aux | head -10"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:36:13.702038",
+    "type": "tool_created",
+    "details": {
+      "tool_path": "./experience_db/generated_tools/auto_system_check_4caaaa7a.py",
+      "commands": [
+        "df -h",
+        "free -h",
+        "uptime",
+        "ps aux | head -10"
+      ],
+      "task_type": "system_check"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:36:13.706789",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183613",
+      "issue_type": "misunderstanding",
+      "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:36:13.707396",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183613",
+      "issue_type": "misunderstanding",
+      "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部"
+    }
+  },
+  {
+    "timestamp": "2026-01-17T18:36:13.707902",
+    "type": "prompt_healing",
+    "details": {
+      "correction_id": "corr_20260117183613",
+      "issue_type": "misunderstanding",
+      "problem": "经常误解'检查系统状态'为只检查CPU，应该检查全部"
+    }
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "correction_id": "corr_20260117180641",
+    "timestamp": "2026-01-17T18:06:41.866057",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误将文件编辑理解为创建新文件",
+    "suggested_fix": "在 prompt 中明确区分 edit_file 和 write_file 的使用场景",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117180641",
+    "timestamp": "2026-01-17T18:06:41.866176",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误将文件编辑理解为创建新文件",
+    "suggested_fix": "在 prompt 中明确区分 edit_file 和 write_file 的使用场景",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117180641",
+    "timestamp": "2026-01-17T18:06:41.866370",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误将文件编辑理解为创建新文件",
+    "suggested_fix": "在 prompt 中明确区分 edit_file 和 write_file 的使用场景",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117180641",
+    "timestamp": "2026-01-17T18:06:41.867851",
+    "issue_type": "wrong_tool",
+    "original_prompt": "current_prompt_section",
+    "problem": "使用 read_file 而非 list_directory 列出目录",
+    "suggested_fix": "明确 list_directory 应优先用于目录操作",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117180641",
+    "timestamp": "2026-01-17T18:06:41.868116",
+    "issue_type": "missing_step",
+    "original_prompt": "current_prompt_section",
+    "problem": "忘记验证文件是否存在后再编辑",
+    "suggested_fix": "添加验证步骤到工作流程",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117180723",
+    "timestamp": "2026-01-17T18:07:23.668620",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误将文件编辑理解为创建新文件",
+    "suggested_fix": "在 prompt 中明确区分 edit_file 和 write_file 的使用场景",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117180723",
+    "timestamp": "2026-01-17T18:07:23.670757",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误将文件编辑理解为创建新文件",
+    "suggested_fix": "在 prompt 中明确区分 edit_file 和 write_file 的使用场景",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117180723",
+    "timestamp": "2026-01-17T18:07:23.671148",
+    "issue_type": "misunderstanding",
+    "original_prompt": "current_prompt_section",
+    "problem": "经常误将文件编辑理解为创建新文件",
+    "suggested_fix": "在 prompt 中明确区分 edit_file 和 write_file 的使用场景",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117180723",
+    "timestamp": "2026-01-17T18:07:23.671544",
+    "issue_type": "wrong_tool",
+    "original_prompt": "current_prompt_section",
+    "problem": "使用 read_file 而非 list_directory 列出目录",
+    "suggested_fix": "明确 list_directory 应优先用于目录操作",
+    "effectiveness": 0.0
+  },
+  {
+    "correction_id": "corr_20260117180723",
+    "timestamp": "2026-01-17T18:07:23.672025",
+    "issue_type": "missing_step",
+    "original_prompt": "current_prompt_section",
+    "problem": "忘记验证文件是否存在后再编辑",
+    "suggested_fix": "添加验证步骤到工作流程",
+    "effectiveness": 0.0
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "9249af8403da": {
+    "pattern_id": "9249af8403da",
+    "commands": [
+      "df -h",
+      "free -h",
+      "uptime",
+      "whoami"
+    ],
+    "description": "自动生成的 system_check 工具",
+    "usage_count": 6,
+    "first_used": "2026-01-17T18:06:41.865411",
+    "last_used": "2026-01-17T18:07:23.668345",
+    "task_type": "system_check"
+  }
+}

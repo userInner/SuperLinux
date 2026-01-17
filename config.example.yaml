@@ -35,6 +35,13 @@ agent:
   max_retries: 3                    # Retry attempts before escalating
   search_attempts_before_consult: 2 # Web searches before consulting secondary AI
   max_iterations: 15                # Max tool call iterations per request
+  
+  # 🧬 自我进化模式设置
+  auto_evolution:
+    enabled: false                  # 是否启用自动进化（true/false）
+    check_interval_hours: 24        # 检查间隔（小时）
+    min_tasks_before_evolution: 10  # 触发进化前的最小任务数
+    auto_apply_improvements: false  # 是否自动应用改进（不询问用户）
 
 # =============================================================================
 # Paths and Storage

@@ -1,0 +1,9 @@
+{
+  "distro": "ubuntu",
+  "version": "22.04",
+  "package_manager": "apt",
+  "init_system": "systemd",
+  "python_path": "/usr/bin/python3",
+  "node_path": "/home/pt/.nvm/versions/node/v22.21.1/bin/node",
+  "last_updated": "2026-01-17T18:06:41.861551"
+}
